@@ -1,13 +1,13 @@
-import { h } from '/lib/dvdi.js';
-import { navigateEvent } from '/app.js';
-import { mailIcon, gitHubIcon, linkedInIcon, xIcon, instagramIcon, moonIcon, sunIcon } from '/lib/icons.js';
+import {navigateEvent} from '/app.js';
+import {gitHubIcon, instagramIcon, linkedInIcon, mailIcon, moonIcon, sunIcon, xIcon} from '/lib/icons.js';
+import {anchor, button, footer, header, heading1, navigation, paragraph, time} from "./html-elements.js";
 
 let darkTheme = null;
 let darkModeSun = null;
 let darkModeMoon = null;
 
 function sunMoonIcon(isSun, clickCallback) {
-    return h('button', {
+    return button({
             className: 'icon',
             id: isSun ? 'dark-mode-sun' : 'dark-mode-moon',
             'aria-label': isSun ? 'Light mode' : 'Dark mode',
@@ -17,25 +17,25 @@ function sunMoonIcon(isSun, clickCallback) {
     )
 }
 
-export function pageHeader() {
-    const component = () => h('header', { className: 'header'},
-        h('nav', { className: 'site-title' },
-            h('h1', {},
-                h('a', { href: '/', onClick: (e) => navigateEvent(e, '/') }, 'davehudson.io')
+export const pageHeader = () => {
+    const component = () => header({className: 'header'},
+        navigation({className: 'site-title'},
+            heading1({},
+                anchor({href: '/', onClick: (e) => navigateEvent(e, '/')}, 'davehudson.io')
             ),
-            h('a', { className: 'icon', href: 'https://instagram.com/davehudsonio', title: 'Instagram' },
+            anchor({className: 'icon', href: 'https://instagram.com/davehudsonio', title: 'Instagram'},
                 instagramIcon()
             ),
-            h('a', { className: 'icon', href: 'https://x.com/davehudsonio', title: 'X' },
+            anchor({className: 'icon', href: 'https://x.com/davehudsonio', title: 'X'},
                 xIcon()
             ),
-            h('a', { className: 'icon', href: 'https://linkedin.com/in/davejh', title: 'LinkedIn' },
+            anchor({className: 'icon', href: 'https://linkedin.com/in/davejh', title: 'LinkedIn'},
                 linkedInIcon()
             ),
-            h('a', { className: 'icon', href: 'https://github.com/dave-hudson', title: 'GitHub' },
+            anchor({className: 'icon', href: 'https://github.com/dave-hudson', title: 'GitHub'},
                 gitHubIcon()
             ),
-            h('a', {
+            anchor({
                     className: 'icon',
                     href: 'mailto:hello@davehudson.io?subject=Email\ about\ davehudson.io',
                     title: 'Email'
@@ -43,10 +43,10 @@ export function pageHeader() {
                 mailIcon(),
             )
         ),
-        h('nav', { className: 'site-menu' },
-            h('a', { className: 'menu', href: '/blog', onClick: (e) => navigateEvent(e, '/blog') }, 'Blog'),
-            h('a', { className: 'menu', href: '/projects', onClick: (e) => navigateEvent(e, '/projects') }, 'Projects'),
-            h('a', { className: 'menu', href: '/about', onClick: (e) => navigateEvent(e, '/about') }, 'Me'),
+        navigation({className: 'site-menu'},
+            anchor({className: 'menu', href: '/blog', onClick: (e) => navigateEvent(e, '/blog')}, 'Blog'),
+            anchor({className: 'menu', href: '/projects', onClick: (e) => navigateEvent(e, '/projects')}, 'Projects'),
+            anchor({className: 'menu', href: '/about', onClick: (e) => navigateEvent(e, '/about')}, 'Me'),
             sunMoonIcon(false, setDarkTheme),
             sunMoonIcon(true, setDarkTheme)
         )
@@ -104,16 +104,16 @@ export function pageHeader() {
     return vNode;
 }
 
-export function articleTitle(title, timeStr = '') {
-    return h('header', { className: 'title' },
-        h('h1', {}, title),
-        h('time', { className: 'meta' }, timeStr)
+export const articleTitle = (title, timeStr = '') => {
+    return header({className: 'title'},
+        heading1({}, title),
+        time({className: 'meta'}, timeStr)
     );
 }
 
-export function pageFooter() {
-    return h('footer', { className: 'footer' },
-        h('p', { className: 'copyright' },
+export const pageFooter = () => {
+    return footer({className: 'footer'},
+        paragraph({className: 'copyright'},
             '© 2014-2024 David J. Hudson'
         )
     );
